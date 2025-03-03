@@ -1,9 +1,22 @@
 class FileEncryption {
     constructor() {
-        // Generate RSA key pair
-        const keyGen = new JSEncrypt({default_key_size: 2048});
-        this.publicKey = keyGen.getPublicKey();
-        this.privateKey = keyGen.getPrivateKey();
+        // Check if we have existing keys in localStorage
+        const savedPublicKey = localStorage.getItem('publicKey');
+        const savedPrivateKey = localStorage.getItem('privateKey');
+
+        if (savedPublicKey && savedPrivateKey) {
+            this.publicKey = savedPublicKey;
+            this.privateKey = savedPrivateKey;
+        } else {
+            // Generate new RSA key pair
+            const keyGen = new JSEncrypt({default_key_size: 2048});
+            this.publicKey = keyGen.getPublicKey();
+            this.privateKey = keyGen.getPrivateKey();
+            
+            // Save keys to localStorage
+            localStorage.setItem('publicKey', this.publicKey);
+            localStorage.setItem('privateKey', this.privateKey);
+        }
     }
 
     async encryptFile(file, masterKey) {
@@ -36,7 +49,8 @@ class FileEncryption {
             const encryptedFile = {
                 content: encryptedContent,
                 key: encryptedAesKey,
-                filename: encryptedFilename
+                filename: encryptedFilename,
+                salt: CryptoJS.lib.WordArray.random(128/8).toString() // Add salt for verification
             };
 
             // Create and download encrypted file
