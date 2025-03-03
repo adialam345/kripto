@@ -1,1 +1,55 @@
- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Encryption Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/3.3.2/jsencrypt.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>File Encryption & Decryption Demo</h1>
+        
+        <div class="card">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="encrypt">Encrypt</button>
+                <button class="tab-btn" data-tab="decrypt">Decrypt</button>
+            </div>
+
+            <div class="tab-content" id="encrypt">
+                <h2>Encrypt File</h2>
+                <div class="input-group">
+                    <label for="encryptFile">Select File:</label>
+                    <input type="file" id="encryptFile" class="file-input">
+                </div>
+                <div class="input-group">
+                    <label for="encryptKey">Master Key:</label>
+                    <input type="password" id="encryptKey" placeholder="Enter your master key">
+                </div>
+                <button id="encryptBtn" class="action-btn">Encrypt File</button>
+            </div>
+
+            <div class="tab-content" id="decrypt" style="display: none;">
+                <h2>Decrypt File</h2>
+                <div class="input-group">
+                    <label for="decryptFile">Select Encrypted File:</label>
+                    <input type="file" id="decryptFile" class="file-input">
+                </div>
+                <div class="input-group">
+                    <label for="decryptKey">Master Key:</label>
+                    <input type="password" id="decryptKey" placeholder="Enter your master key">
+                </div>
+                <button id="decryptBtn" class="action-btn">Decrypt File</button>
+            </div>
+        </div>
+
+        <div id="status" class="status"></div>
+    </div>
+
+    <script src="caesar.js"></script>
+    <script src="encryption.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>  
